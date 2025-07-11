@@ -1,6 +1,8 @@
+import { useNavigate   } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useFormData } from '../context/FormContext';
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email" }),
@@ -10,7 +12,7 @@ const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>;
 
 const Login = () => {
-  const {
+    const {
     register,
     handleSubmit,
     formState: { errors },
@@ -18,9 +20,18 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
   });
 
+  const navigate = useNavigate();
+  const { setIsLoggedIn } = useFormData(); // ⬅️ set login state
+
   const onSubmit = (data: LoginForm) => {
-    console.log('✅ Login Successful:', data);
-    // Redirect or authenticate here
+     const { email, password } = data;
+ if (email === 'ashrafkazi03@gmail.com' && password === '123456') {
+    console.log('✅ Login Successful');
+    setIsLoggedIn(true); // mark as logged in
+    navigate('/template'); // redirect to template page
+  } else {
+    alert('❌ Invalid email or password');
+  }
   };
 
   return (

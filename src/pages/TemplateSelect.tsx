@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 
 const templates = [
   { id: 1, name: "Classic Quotation", description: "Simple professional layout" },
@@ -6,7 +7,17 @@ const templates = [
   { id: 4, name: "Custom", description: "Make your Own" },
 ];
 
+
+
 const TemplateSelect = () => {
+  const navigate = useNavigate();
+
+  const handleTemplateSelect = (templateId: number) => {
+    console.log(`Selected template ${templateId}`);
+    // Store selected template in state/context if needed
+    navigate('/form');
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 className="text-3xl font-bold text-center mb-8">Select a Template</h1>
@@ -20,7 +31,7 @@ const TemplateSelect = () => {
             <p className="text-gray-600 mb-4">{template.description}</p>
             <button
               className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
-              onClick={() => console.log(`Selected template ${template.id}`)}
+              onClick={() => handleTemplateSelect(template.id)}
             >
               Select
             </button>
