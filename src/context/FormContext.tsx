@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext } from 'react';
 
-type Item = {
+/*type Item = {
   name: string;
   quantity: number;
   price: number;
@@ -18,15 +18,21 @@ const FormContext = createContext<{
 }>({
   data: null,
   setData: () => {},
-});
+});*/
 
-export const useFormData = () => useContext(FormContext);
+const FormContext = createContext<any>(null);
+
+// export const useFormData = () => useContext(FormContext);
 
 export const FormProvider = ({ children }: { children: React.ReactNode }) => {
-  const [data, setData] = useState<FormData | null>(null);
+  const [data, setData] = useState<any>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
   return (
-    <FormContext.Provider value={{ data, setData }}>
+    <FormContext.Provider value={{ data, setData, isLoggedIn, setIsLoggedIn }}>
       {children}
     </FormContext.Provider>
   );
 };
+
+export const useFormData = () => useContext(FormContext);

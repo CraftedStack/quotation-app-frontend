@@ -31,10 +31,10 @@ const QuotationPreview = () => {
     );
   }
 
-  const total = data.items.reduce(
-    (acc, item) => acc + item.quantity * item.price,
-    0
-  );
+ const total = data.items.reduce(
+  (acc: number, item: { quantity: number; price: number }) => acc + item.quantity * item.price,
+  0
+)
 
   const handleDownload = () => {
   if (!quoteRef.current) return;
@@ -75,13 +75,13 @@ const QuotationPreview = () => {
             </tr>
             </thead>
             <tbody>
-            {data.items.map((item, index) => (
-                <tr key={index}>
+            {data.items.map((item: { name: string; quantity: number; price: number }, index: number) => (
+            <tr key={index}>
                 <td className="border px-4 py-2">{item.name}</td>
                 <td className="border px-4 py-2">{item.quantity}</td>
                 <td className="border px-4 py-2">₹{item.price}</td>
                 <td className="border px-4 py-2">₹{item.quantity * item.price}</td>
-                </tr>
+            </tr>
             ))}
             <tr className="font-semibold">
                 <td colSpan={3} className="border px-4 py-2 text-right">Grand Total</td>
